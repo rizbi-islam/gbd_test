@@ -1,0 +1,71 @@
+{
+    "site": {
+        "name": "GreenBD",
+        "logo": "img/greenbd-logo.png",
+        "email": "info@greenbd.com"
+    },
+    "navigation": [
+        {
+            "title": "Home",
+            "url": "index.html",
+            "page": "home"
+        },
+        {
+            "title": "Cloud",
+            "url": "cloud.html",
+            "page": "cloud"
+        },
+        {
+            "title": "Domain",
+            "url": "domain.html",
+            "page": "domain"
+        },
+        {
+            "title": "SSL",
+            "url": "ssl.html",
+            "page": "ssl"
+        },
+        {
+            "title": "Zimbra",
+            "url": "zimbra.html",
+            "page": "zimbra"
+        },
+        {
+            "title": "About",
+            "url": "about-us.html",
+            "page": "about"
+        }
+    ],
+    "pages": {
+        "home": {
+            "title": "Welcome to GreenBD",
+            "subtitle": "Cloud, Domain, SSL and Hosting Solutions",
+            "image": "img/banner1.png"
+        },
+        "cloud": {
+            "title": "Cloud Hosting",
+            "subtitle": "Fast and scalable cloud hosting",
+            "image": "img/cloud-serv.jpg"
+        },
+        "domain": {
+            "title": "Domain Registration",
+            "subtitle": "Secure your online identity",
+            "image": "img/dom-serv.jpg"
+        },
+        "ssl": {
+            "title": "SSL Certificate",
+            "subtitle": "Protect your website with SSL",
+            "image": "img/ssl-serv.png"
+        },
+        "zimbra": {
+            "title": "Zimbra Mail",
+            "subtitle": "Enterprise email solution",
+            "image": "img/zimbra-serv.jpg"
+        },
+        "about": {
+            "title": "About GreenBD",
+            "subtitle": "We provide hosting and cloud solutions",
+            "image": "img/about.jpg"
+        }
+    }
+}
