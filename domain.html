@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title data-bind="pages.domain.title"></title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+<img data-bind-src="site.logo" width="120">
+<h1 data-bind="site.name"></h1>
+
+<ul data-repeat="navigation">
+<li><a href="{{url}}">{{title}}</a></li>
+</ul>
+
+</header>
+
+<section>
+<h2 data-bind="pages.domain.title"></h2>
+<p data-bind="pages.domain.subtitle"></p>
+<img data-bind-src="pages.domain.image" width="400">
+</section>
+
+<script src="js/engine.js"></script>
+
+</body>
+</html>
