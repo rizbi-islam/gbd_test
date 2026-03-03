@@ -5,13 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GreenBD Hosting</title>
   <link rel="stylesheet" href="css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header class="premium-header"></header>
-  <section class="hero"></section>
-  <main id="main-content"><!-- dynamic page content injected here --></main>
-  <footer></footer>
-  <script src="js/app.js"></script>
+  <header id="site-header"></header>
+  <div id="mobile-menu" class="mobile-menu" aria-hidden="true"></div>
+  <main id="app"></main>
+  <footer id="site-footer"></footer>
+
+  <!-- OOP JS Modules -->
+  <script src="js/classes/DataStore.js"></script>
+  <script src="js/classes/Router.js"></script>
+  <script src="js/classes/Header.js"></script>
+  <script src="js/classes/Footer.js"></script>
+  <script src="js/classes/HeroSlider.js"></script>
+  <script src="js/classes/PageRenderer.js"></script>
+  <script src="js/classes/App.js"></script>
+  <script>
+    // Bootstrap the application
+    document.addEventListener('DOMContentLoaded', () => {
+      window.app = new App();
+      window.app.init();
+    });
+  </script>
 </body>
 </html>
