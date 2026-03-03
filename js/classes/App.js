@@ -25,7 +25,7 @@ class App {
    */
   async init() {
     try {
-      await this._store.load('data/data.json');
+      await this._store.load();
     } catch {
       document.getElementById('app').innerHTML =
         '<p style="text-align:center;padding:80px;color:#c00;">Failed to load site data. Please refresh.</p>';
