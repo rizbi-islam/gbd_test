@@ -1,0 +1,120 @@
+/* ===== ORIGINAL STYLES (keep everything you had) ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Poppins', sans-serif;
+}
+:root {
+  --green: #27ae60;
+  --dark: #121212;
+}
+/* ... all your existing CSS (header, hero, services, contact, about, footer, etc.) ... */
+
+/* ===== NEW RESPONSIVE ENHANCEMENTS ===== */
+
+/* Mobile navigation (hamburger) */
+.menu-toggle {
+  display: none;
+  font-size: 28px;
+  color: white;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0 15px;
+}
+
+@media (max-width: 768px) {
+  .premium-header {
+    flex-wrap: wrap;
+    padding: 15px 5%;
+  }
+
+  .menu-toggle {
+    display: block;
+    order: 3;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background: #0d1117;
+    position: absolute;
+    top: 72px;
+    left: 0;
+    padding: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    z-index: 999;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .nav-links a {
+    padding: 12px 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  .dropdown-content {
+    position: static;
+    box-shadow: none;
+    background: #1f2937;
+    margin-top: 5px;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: none; /* disable hover on mobile */
+  }
+  .dropdown.active .dropdown-content {
+    display: block; /* toggle via JS */
+  }
+}
+
+/* Responsive grids */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  padding: 0 15px;
+}
+
+.about-container {
+  display: grid;
+  grid-template-columns: 1fr; /* stack by default */
+  gap: 30px;
+  padding: 30px;
+}
+
+@media (min-width: 900px) {
+  .about-container {
+    grid-template-columns: 70% 30%;
+  }
+}
+
+/* Typography scaling */
+.hero-slide .slide-content h1 {
+  font-size: clamp(28px, 6vw, 42px);
+}
+.hero-slide .slide-content p {
+  font-size: clamp(16px, 3vw, 18px);
+}
+
+/* Touch-friendly contact icons */
+.contact-item {
+  flex-wrap: wrap;
+}
+.social-icon {
+  width: 44px;
+  height: 44px;
+  font-size: 20px;
+}
+
+/* Footer stays at bottom */
+footer {
+  margin-top: 0;
+}
