@@ -4,29 +4,702 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GreenBD Hosting</title>
-  <link rel="stylesheet" href="css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:#fff;color:#333;line-height:1.7;min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden}
+body.menu-open{overflow:hidden}
+#app{flex:1}
+img{max-width:100%;height:auto;display:block}
+a{text-decoration:none}
+button{cursor:pointer;border:none;background:none;font-family:inherit}
+ul{list-style:none}
+:root{
+  --green:#27ae60;--green-light:#2ecc71;--green-dark:#1e8449;
+  --navy:#0b2c5f;--dark:#0d1117;--dark2:#161b22;
+  --text:#333;--muted:#555;--bg:#f4f7fb;
+  --border:rgba(255,255,255,0.18);
+  --shadow-sm:0 4px 16px rgba(0,0,0,0.08);
+  --shadow-md:0 12px 40px rgba(0,0,0,0.12);
+  --shadow-lg:0 24px 60px rgba(0,0,0,0.18);
+  --radius:16px;--radius-sm:8px;
+  --ease:0.32s cubic-bezier(0.4,0,0.2,1);
+}
+/* HEADER */
+#site-header{position:sticky;top:0;z-index:900;background:var(--dark);box-shadow:0 4px 24px rgba(0,0,0,0.45)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 6%;max-width:1400px;margin:0 auto;width:100%}
+.logo-link{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo-img{height:40px;width:auto;object-fit:contain}
+.second-logo{opacity:.88}
+.nav-links{display:flex;align-items:center;gap:4px}
+.nav-link{font-family:'Sora',sans-serif;font-size:14px;font-weight:500;color:#d0d8e4;padding:8px 14px;border-radius:var(--radius-sm);transition:color var(--ease),background var(--ease);white-space:nowrap;display:inline-block}
+.nav-link:hover,.nav-link.active{color:#fff;background:rgba(39,174,96,0.18)}
+.nav-link.active{color:var(--green-light)}
+.dropdown{position:relative}
+.dropdown-btn{display:flex;align-items:center;gap:5px;font-family:'Sora',sans-serif;font-size:14px;font-weight:500;color:#d0d8e4;padding:8px 14px;border-radius:var(--radius-sm);transition:color var(--ease),background var(--ease);white-space:nowrap}
+.dropdown-btn:hover{color:#fff;background:rgba(39,174,96,0.18)}
+.chevron{font-size:10px;display:inline-block;transition:transform var(--ease)}
+.dropdown-btn.open .chevron{transform:rotate(180deg)}
+.dropdown-menu{display:none;position:absolute;top:calc(100% + 8px);left:0;background:var(--dark2);min-width:220px;border-radius:var(--radius-sm);padding:6px;box-shadow:0 16px 40px rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.08);z-index:10}
+.dropdown-menu.open{display:block;animation:dropDown .2s ease}
+@keyframes dropDown{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.dropdown-item{display:block;padding:10px 14px;font-size:14px;color:#c8d0dc;border-radius:6px;transition:background var(--ease),color var(--ease)}
+.dropdown-item:hover,.dropdown-item.active{background:rgba(39,174,96,0.2);color:var(--green-light)}
+.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:38px;height:38px;padding:5px;border-radius:6px;transition:background var(--ease);flex-shrink:0}
+.hamburger:hover{background:rgba(255,255,255,0.1)}
+.hamburger span{display:block;height:2px;background:#fff;border-radius:2px;width:100%;transition:transform .3s ease,opacity .3s ease}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+/* MOBILE MENU */
+#mobile-menu{position:fixed;inset:0;z-index:850;background:rgba(13,17,23,0.97);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s ease}
+#mobile-menu.open{opacity:1;pointer-events:all}
+.mob-close{position:absolute;top:20px;right:24px;color:#fff;font-size:24px;padding:8px;border-radius:50%;transition:background var(--ease)}
+.mob-close:hover{background:rgba(255,255,255,0.1)}
+.mob-nav{display:flex;flex-direction:column;align-items:center;gap:6px;width:100%;max-width:320px;padding:0 24px}
+.mob-link{font-family:'Sora',sans-serif;font-size:18px;font-weight:500;color:#d0d8e4;padding:14px 32px;border-radius:var(--radius-sm);text-align:center;width:100%;display:block;transition:background var(--ease),color var(--ease)}
+.mob-link:hover,.mob-link.active{background:rgba(39,174,96,0.2);color:var(--green-light)}
+/* HERO */
+.hero{position:relative;background:var(--dark)}
+.hero-inner{position:relative;height:clamp(260px,45vw,480px);overflow:hidden}
+.hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.2s ease-in-out;z-index:1}
+.hero-slide.active{opacity:1;z-index:2}
+.hero-slide::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.3),rgba(0,0,0,0.6))}
+.slide-content{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;color:#fff;z-index:3;width:90%;max-width:700px;opacity:0}
+.hero-slide.active .slide-content{opacity:1;animation:textUp 1s ease forwards}
+.slide-content h1{font-family:'Sora',sans-serif;font-size:clamp(22px,4.5vw,46px);font-weight:700;margin-bottom:14px;letter-spacing:-.5px;text-shadow:0 2px 12px rgba(0,0,0,0.4)}
+.slide-content p{font-size:clamp(14px,2vw,20px);opacity:.9;text-shadow:0 1px 6px rgba(0,0,0,0.4)}
+@keyframes textUp{from{opacity:0;transform:translate(-50%,-44%)}to{opacity:1;transform:translate(-50%,-50%)}}
+.hero-dots{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);z-index:4;display:flex;gap:8px}
+.hero-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.4);border:none;cursor:pointer;transition:background .3s,width .3s,border-radius .3s;padding:0}
+.hero-dot.active{background:var(--green-light);width:24px;border-radius:4px}
+/* SERVICES */
+.services-section{padding:clamp(50px,8vw,100px) 6%;background:var(--bg);text-align:center}
+.section-title{font-family:'Sora',sans-serif;font-size:clamp(22px,3.5vw,32px);color:var(--navy);margin-bottom:clamp(30px,5vw,55px);font-weight:700}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:clamp(20px,3vw,36px);max-width:1300px;margin:0 auto}
+.service-card{display:flex;flex-direction:column;background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);transition:transform var(--ease),box-shadow var(--ease);cursor:pointer}
+.service-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg)}
+.service-image{overflow:hidden;height:140px}
+.service-image img{width:100%;height:100%;object-fit:cover;transition:transform var(--ease)}
+.service-card:hover .service-image img{transform:scale(1.06)}
+.service-content{padding:22px 24px 26px;flex:1;display:flex;flex-direction:column;gap:10px}
+.service-content h3{font-family:'Sora',sans-serif;font-size:17px;color:var(--navy);font-weight:600}
+.service-content p{color:var(--muted);font-size:14px;line-height:1.6}
+/* CONTACT */
+.contact{background:var(--navy);padding:clamp(50px,8vw,80px) 6%}
+.contact-inner{max-width:520px;margin:0 auto;padding:clamp(28px,4vw,40px);border-radius:var(--radius);background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--border);box-shadow:0 8px 32px rgba(0,0,0,0.3);color:#fff;animation:cReveal .9s ease forwards;opacity:0}
+.contact-inner h2{font-family:'Sora',sans-serif;text-align:center;margin-bottom:24px;font-size:clamp(20px,3vw,26px)}
+.contact-item{display:flex;align-items:flex-start;gap:12px;margin:14px 0;font-size:15px}
+.icon{font-size:20px;min-width:26px;line-height:1.5}
+.social-row{margin-top:24px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.social-icon{width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(255,255,255,0.12);border:1px solid var(--border);font-size:17px;color:#fff;transition:background var(--ease),transform var(--ease),box-shadow var(--ease)}
+.social-icon:hover{background:rgba(255,255,255,0.28);transform:translateY(-4px) scale(1.08);box-shadow:0 8px 20px rgba(0,0,0,0.3)}
+@keyframes cReveal{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+/* INNER PAGES */
+.inner-page{padding:clamp(40px,6vw,90px) 6%;background:#f8fafc}
+.about-container{display:grid;grid-template-columns:65% 1fr;gap:clamp(30px,4vw,55px);align-items:start;background:#fff;padding:clamp(28px,4vw,52px);border-radius:var(--radius);box-shadow:var(--shadow-md);max-width:1100px;margin:0 auto;transition:transform var(--ease),box-shadow var(--ease)}
+.about-container:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.about-text h3{font-family:'Sora',sans-serif;font-size:clamp(18px,2.5vw,24px);color:var(--green-dark);margin:22px 0 12px;font-weight:600}
+.about-text h3:first-child{margin-top:0;color:var(--navy);font-size:clamp(20px,3vw,28px)}
+.about-text p{font-size:clamp(14px,1.6vw,16px);color:#3a4252;margin-bottom:16px;line-height:1.8}
+.about-text .intro-text{font-size:clamp(15px,1.8vw,17px);color:var(--navy);font-weight:500}
+.about-text .closing-text{font-weight:500;color:var(--green-dark)}
+.feature-list{margin:0 0 18px;display:flex;flex-direction:column;gap:8px}
+.feature-list li{font-size:clamp(13px,1.5vw,15px);color:#3a4252;padding:8px 14px;background:rgba(39,174,96,0.06);border-left:3px solid var(--green);border-radius:0 6px 6px 0;transition:background var(--ease)}
+.feature-list li:hover{background:rgba(39,174,96,0.12)}
+.about-image{position:sticky;top:100px}
+.about-image img{width:100%;border-radius:12px;object-fit:cover;box-shadow:var(--shadow-md)}
+/* FOOTER */
+#site-footer{background:var(--dark);color:rgba(255,255,255,0.7);text-align:center}
+.footer-inner{padding:20px 6%;font-size:14px}
+/* RESPONSIVE */
+@media(max-width:900px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .about-container{grid-template-columns:1fr}
+  .about-image{position:static;max-width:380px;margin:0 auto;width:100%}
+}
+@media(max-width:600px){
+  .header-inner{padding:12px 5%}
+  .logo-img{height:32px}
+  .hero-inner{height:clamp(200px,55vw,320px)}
+  .services-section{padding:40px 5%}
+  .services-grid{grid-template-columns:1fr;gap:16px}
+  .contact{padding:40px 5%}
+  .contact-inner{padding:24px 18px}
+  .inner-page{padding:30px 5%}
+  .about-container{padding:22px 16px;gap:20px}
+}
+@media(min-width:1400px){
+  .header-inner{padding:16px 8%}
+  .services-section{padding:110px 8%}
+  .contact{padding:90px 8%}
+  .inner-page{padding:100px 8%}
+}
+  </style>
 </head>
 <body>
   <header id="site-header"></header>
-  <div id="mobile-menu" class="mobile-menu" aria-hidden="true"></div>
+  <div id="mobile-menu"></div>
   <main id="app"></main>
   <footer id="site-footer"></footer>
 
-  <!-- OOP JS Modules -->
-  <script src="js/classes/DataStore.js"></script>
-  <script src="js/classes/Router.js"></script>
-  <script src="js/classes/Header.js"></script>
-  <script src="js/classes/Footer.js"></script>
-  <script src="js/classes/HeroSlider.js"></script>
-  <script src="js/classes/PageRenderer.js"></script>
-  <script src="js/classes/App.js"></script>
-  <script>
-    // Bootstrap the application
-    document.addEventListener('DOMContentLoaded', () => {
-      window.app = new App();
-      window.app.init();
-    });
-  </script>
+<script>
+'use strict';
+
+/* ============================================================
+   CLASS: DataStore
+   All content embedded inline — zero fetch, works on file://
+============================================================ */
+function DataStore() {
+  if (DataStore.instance) return DataStore.instance;
+  DataStore.instance = this;
+
+  this._d = {
+    global: {
+      header: {
+        logo: 'img/greenbd-logo.png',
+        logoText: 'img/greenbd-banner-Text.png',
+        nav: [
+          { text: 'Home', url: '#/' },
+          { text: 'Services', dropdown: [
+            { text: 'Shared Hosting',         url: '#/shared' },
+            { text: 'Zimbra Mail Hosting',    url: '#/zimbra' },
+            { text: 'Domain Services',        url: '#/domain' },
+            { text: 'On-Premise Mail Server', url: '#/onpremise' },
+            { text: 'Cloud VPS',              url: '#/cloud' },
+            { text: 'SSL Certificate',        url: '#/ssl' }
+          ]},
+          { text: 'About', url: '#/about' }
+        ]
+      },
+      heroSlides: [
+        { bgImage: 'img/banner1.png', title: 'Premium Web Hosting',     desc: 'Fast, Secure & Reliable Infrastructure' },
+        { bgImage: 'img/banner5.png', title: 'Cloud VPS Solutions',     desc: 'Scalable virtual private servers with SSD & high uptime.' },
+        { bgImage: 'img/banner6.png', title: 'Secure SSL Certificates', desc: 'Protect Your Website & Customers' },
+        { bgImage: 'img/banner3.png', title: 'Domain Services',         desc: 'Secure your brand identity online.' },
+        { bgImage: 'img/banner8.jpg', title: 'Zimbra Mail Hosting',     desc: 'Enterprise-grade email collaboration with security & reliability.' }
+      ],
+      footer: '&copy; 2026 GreenBD Hosting &mdash; All rights reserved'
+    },
+    pages: {
+      'index': {
+        services: [
+          { image:'img/host-serv.jpg',   title:'Web Hosting',           desc:'High-performance hosting powered by secure infrastructure and SSD storage.',        link:'#/shared' },
+          { image:'img/dom-serv.jpg',    title:'Domain Services',       desc:'Secure your brand identity online with our easy domain management platform.',      link:'#/domain' },
+          { image:'img/mail-serv.jpg',   title:'Dedicated Mail Server', desc:'Significantly more cost effective on-premise mail solution for your business.',     link:'#/onpremise' },
+          { image:'img/zimbra-serv.png', title:'Zimbra Mail Hosting',   desc:'Enterprise-grade email collaboration with security & reliability.',                 link:'#/zimbra' },
+          { image:'img/cloud-serv.jpg',  title:'Cloud VPS',             desc:'Scalable virtual private servers with NVMe SSD & guaranteed high uptime.',          link:'#/cloud' },
+          { image:'img/ssl-serv.png',    title:'SSL Certificate',       desc:'Secure your website with trusted encryption & HTTPS protection.',                   link:'#/ssl' }
+        ],
+        contact: {
+          email:   'support@greenbd-hosting.com',
+          phone:   '+880 1716-398334',
+          address: 'Gulshan-1, Dhaka, Bangladesh',
+          social: [
+            { icon:'f', url:'#', title:'Facebook' },
+            { icon:'X', url:'#', title:'Twitter' },
+            { icon:'in', url:'#', title:'LinkedIn' },
+            { icon:'&#9654;', url:'#', title:'YouTube' }
+          ]
+        }
+      },
+      'about-us': {
+        title: 'Who We Are',
+        paragraphs: [
+          'GreenBD Hosting is a technology-driven hosting provider committed to delivering secure, scalable, and eco-friendly infrastructure solutions.',
+          'We specialize in shared hosting, VPS solutions, and domain services designed to empower businesses, startups, and individuals across Bangladesh and beyond.',
+          'With 24/7 technical support and optimized infrastructure, we provide a hosting experience engineered for growth.',
+          'Our mission is to provide high-performance hosting backed by modern infrastructure, expert support, and sustainable practices.',
+          "Whether you're launching your first website or scaling enterprise workloads, GreenBD Hosting grows with you."
+        ],
+        image: 'img/about.jpg'
+      },
+      'shared': {
+        title: 'Secure Shared Hosting',
+        paragraphs: [
+          'We specialize in shared hosting, VPS solutions, and domain services designed to empower businesses, startups, and individuals across Bangladesh and beyond.',
+          'With 24/7 technical support and optimized infrastructure, we provide a hosting experience engineered for growth.',
+          'Our mission is to provide high-performance hosting backed by modern infrastructure, expert support, and sustainable practices.',
+          "Whether you're launching your first website or scaling enterprise workloads, GreenBD Hosting grows with you."
+        ],
+        image: 'img/host-serv.jpg'
+      },
+      'ssl': {
+        title: 'SSL Certificate',
+        intro: 'Protect your website with secure HTTPS encryption.',
+        paragraphs: [
+          'An SSL Certificate is essential for protecting your website and customer data. GreenBD Hosting provides trusted SSL solutions that encrypt communication between your website and visitors, ensuring secure transactions and data privacy.',
+          "SSL not only secures sensitive information such as login credentials and payment details, but also improves your website's credibility and search engine ranking. Modern browsers mark non-HTTPS websites as Not Secure — don't let that damage your reputation."
+        ],
+        benefits: [
+          '256-bit Strong Encryption',
+          'HTTPS Secure Connection',
+          'Increased Customer Trust',
+          'Google SEO Ranking Boost',
+          'Data Protection & Compliance',
+          'Secure Online Payments'
+        ],
+        types: 'We provide Domain Validation (DV), Organization Validation (OV), and Extended Validation (EV) SSL certificates suitable for personal websites, business platforms, and eCommerce portals.',
+        closing: 'Protect your brand, secure your data, and build customer confidence with GreenBD Hosting SSL solutions.',
+        image: 'img/ssl.png'
+      },
+      'zimbra': {
+        title: 'ZIMBRA Email Collaboration',
+        paragraphs: [
+          'Zimbra offers businesses a secure, data-sovereign email and collaboration platform built on open standards. A low-risk alternative, it provides integrated email, calendar, contacts, tasks, and document sharing.',
+          'Businesses gain complete control over their data with flexible on-premises or cloud deployment, ensuring compliance and avoiding vendor lock-in. Empowering productivity with advanced security, Zimbra delivers a trusted and transparent communication solution designed for your needs.'
+        ],
+        image: 'img/zimbra.png'
+      },
+      'domain': {
+        title: 'Domain Service',
+        paragraphs: [
+          'GreenBD Hosting is a technology-driven hosting provider committed to delivering secure, scalable, and eco-friendly infrastructure solutions.',
+          'In the Internet, a domain name identifies a realm of administrative autonomy, authority or control. Domain names are often used to identify services provided through the Internet, such as websites, email services and more.',
+          'GreenBD Hosting has made an easy platform for customers to register and manage their domains with full support and competitive pricing.'
+        ],
+        image: 'img/domain.png'
+      },
+      'cloud': {
+        title: 'Cloud VPS',
+        intro: 'Powerful, scalable and reliable cloud infrastructure.',
+        paragraphs: [
+          'GreenBD Hosting provides high-performance Cloud VPS solutions designed for businesses, developers, and growing enterprises. Our cloud infrastructure is powered by enterprise-grade hardware, NVMe SSD storage, and optimized virtualization to deliver speed, reliability, and security.',
+          'Whether you need hosting for a high-traffic website, web application, ERP system, or custom business software, our Cloud VPS platform ensures maximum uptime, scalability, and full administrative control.'
+        ],
+        features: [
+          'High-Speed NVMe Storage',
+          'Dedicated CPU & RAM Resources',
+          'Full Root Access',
+          'Instant Resource Scalability',
+          'Advanced Firewall Protection',
+          '24/7 Technical Support',
+          '99.9% Network Uptime Guarantee'
+        ],
+        why: 'Our infrastructure is built for performance and security. With isolated virtual environments, your server operates independently without interference from other users. We provide full customization, allowing you to install any operating system, control panel, or application that fits your business needs.',
+        closing: 'From startups to enterprise deployments, GreenBD Hosting ensures reliable and scalable cloud solutions tailored for long-term growth.',
+        image: 'img/vps.png'
+      },
+      'onpremise': {
+        title: 'On-Premise Mail Server',
+        paragraphs: [
+          'GreenBD Hosting provides enterprise-grade On-Premise Mail Server solutions designed for organizations that require full control over their email infrastructure, security policies, and data governance.',
+          'An on-premise setup means hosting and managing your software, data, and systems on physical servers owned or located within your company. This approach provides full control over configurations, updates, and security.'
+        ],
+        ownership: 'Complete Infrastructure Ownership',
+        ownershipText: "Our on-premise mail server solution is deployed within your organization's physical or virtual infrastructure. This ensures that all business communications, user data, and compliance requirements remain under your direct control.",
+        idealFor: 'Ideal For',
+        idealList: [
+          'Government organizations',
+          'Financial institutions',
+          'Healthcare providers',
+          'Educational institutions',
+          'Enterprises requiring strict data compliance'
+        ],
+        support: 'Professional Support & Maintenance',
+        supportText: 'GreenBD Hosting offers ongoing maintenance, monitoring, patch management, and technical support to ensure operational stability and continuous uptime.',
+        image: 'img/mail.png'
+      }
+    }
+  };
+}
+
+DataStore.prototype.getGlobal = function() { return this._d.global; };
+DataStore.prototype.getPage   = function(key) { return this._d.pages[key] || this._d.pages['index']; };
+
+
+/* ============================================================
+   CLASS: Router
+   Hash-based routing. Calls onNavigate(pageKey) on change.
+============================================================ */
+function Router(onNavigate) {
+  this._cb = onNavigate;
+  this._cur = null;
+  this._map = {
+    '':          'index',
+    '/':         'index',
+    '/about':    'about-us',
+    '/about-us': 'about-us',
+    '/shared':   'shared',
+    '/ssl':      'ssl',
+    '/zimbra':   'zimbra',
+    '/domain':   'domain',
+    '/cloud':    'cloud',
+    '/onpremise':'onpremise'
+  };
+}
+
+Router.prototype.init = function() {
+  var self = this;
+  window.addEventListener('hashchange', function() { self._resolve(); });
+  this._resolve();
+};
+
+Router.prototype._resolve = function() {
+  var hash = window.location.hash || '#/';
+  var seg  = hash.charAt(0) === '#' ? hash.slice(1) : hash;
+  var key  = this._map.hasOwnProperty(seg) ? this._map[seg] : 'index';
+  if (key === this._cur) return;
+  this._cur = key;
+  this._cb(key);
+};
+
+
+/* ============================================================
+   CLASS: Header
+   Sticky nav — desktop dropdown + mobile hamburger overlay
+============================================================ */
+function Header(el, mobEl, data) {
+  this._el  = el;
+  this._mob = mobEl;
+  this._d   = data;
+}
+
+Header.prototype.render = function() {
+  this._el.innerHTML  = this._buildDesktop();
+  this._mob.innerHTML = this._buildMobile();
+  this._bindEvents();
+};
+
+Header.prototype.setActive = function(pageKey) {
+  var links = this._el.querySelectorAll('[data-page]');
+  for (var i = 0; i < links.length; i++) {
+    links[i].classList.toggle('active', links[i].getAttribute('data-page') === pageKey);
+  }
+  var mlinks = this._mob.querySelectorAll('[data-page]');
+  for (var j = 0; j < mlinks.length; j++) {
+    mlinks[j].classList.toggle('active', mlinks[j].getAttribute('data-page') === pageKey);
+  }
+};
+
+Header.prototype._toKey = function(url) {
+  var map = {
+    '#/':'index','#/about':'about-us','#/about-us':'about-us',
+    '#/shared':'shared','#/ssl':'ssl','#/zimbra':'zimbra',
+    '#/domain':'domain','#/cloud':'cloud','#/onpremise':'onpremise'
+  };
+  return map[url] || 'index';
+};
+
+Header.prototype._buildDesktop = function() {
+  var nav = '';
+  for (var i = 0; i < this._d.nav.length; i++) {
+    var item = this._d.nav[i];
+    if (item.dropdown) {
+      var sub = '';
+      for (var j = 0; j < item.dropdown.length; j++) {
+        var s = item.dropdown[j];
+        sub += '<a href="' + s.url + '" class="dropdown-item" data-page="' + this._toKey(s.url) + '">' + s.text + '</a>';
+      }
+      nav += '<div class="dropdown"><button class="dropdown-btn" type="button">' + item.text + ' <span class="chevron">&#9660;</span></button><div class="dropdown-menu">' + sub + '</div></div>';
+    } else {
+      nav += '<a href="' + item.url + '" class="nav-link" data-page="' + this._toKey(item.url) + '">' + item.text + '</a>';
+    }
+  }
+  return '<div class="header-inner"><a href="#/" class="logo-link"><img src="' + this._d.logo + '" class="logo-img" alt="GreenBD"><img src="' + this._d.logoText + '" class="logo-img second-logo" alt="GreenBD Hosting"></a><nav class="nav-links">' + nav + '</nav><button class="hamburger" type="button" aria-label="Open menu"><span></span><span></span><span></span></button></div>';
+};
+
+Header.prototype._buildMobile = function() {
+  var links = '';
+  for (var i = 0; i < this._d.nav.length; i++) {
+    var item = this._d.nav[i];
+    if (item.dropdown) {
+      for (var j = 0; j < item.dropdown.length; j++) {
+        var s = item.dropdown[j];
+        links += '<a href="' + s.url + '" class="mob-link" data-page="' + this._toKey(s.url) + '">' + s.text + '</a>';
+      }
+    } else {
+      links += '<a href="' + item.url + '" class="mob-link" data-page="' + this._toKey(item.url) + '">' + item.text + '</a>';
+    }
+  }
+  return '<button class="mob-close" type="button">&#x2715;</button><nav class="mob-nav">' + links + '</nav>';
+};
+
+Header.prototype._bindEvents = function() {
+  var self = this;
+
+  var ham = this._el.querySelector('.hamburger');
+  if (ham) { ham.addEventListener('click', function() { self._openMob(true); }); }
+
+  var cls = this._mob.querySelector('.mob-close');
+  if (cls) { cls.addEventListener('click', function() { self._openMob(false); }); }
+
+  var mlinks = this._mob.querySelectorAll('.mob-link');
+  for (var i = 0; i < mlinks.length; i++) {
+    mlinks[i].addEventListener('click', function() { self._openMob(false); });
+  }
+
+  var btns = this._el.querySelectorAll('.dropdown-btn');
+  for (var j = 0; j < btns.length; j++) {
+    (function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var menu = btn.nextElementSibling;
+        var now  = menu.classList.toggle('open');
+        btn.classList.toggle('open', now);
+        // close siblings
+        var allMenus = self._el.querySelectorAll('.dropdown-menu');
+        for (var k = 0; k < allMenus.length; k++) {
+          if (allMenus[k] !== menu) {
+            allMenus[k].classList.remove('open');
+            if (allMenus[k].previousElementSibling) allMenus[k].previousElementSibling.classList.remove('open');
+          }
+        }
+      });
+    })(btns[j]);
+  }
+
+  document.addEventListener('click', function() {
+    var menus = self._el.querySelectorAll('.dropdown-menu');
+    for (var i = 0; i < menus.length; i++) {
+      menus[i].classList.remove('open');
+      if (menus[i].previousElementSibling) menus[i].previousElementSibling.classList.remove('open');
+    }
+  });
+};
+
+Header.prototype._openMob = function(open) {
+  this._mob.classList.toggle('open', open);
+  document.body.classList.toggle('menu-open', open);
+  var ham = this._el.querySelector('.hamburger');
+  if (ham) ham.classList.toggle('open', open);
+};
+
+
+/* ============================================================
+   CLASS: Footer
+============================================================ */
+function Footer(el, text) { this._el = el; this._t = text; }
+Footer.prototype.render = function() { this._el.innerHTML = '<div class="footer-inner">' + this._t + '</div>'; };
+
+
+/* ============================================================
+   CLASS: HeroSlider
+   Auto-advancing slider with dot controls & keyboard support
+============================================================ */
+function HeroSlider(container, slides) {
+  this._c    = container;
+  this._s    = slides;
+  this._i    = 0;
+  this._tmr  = null;
+  this._busy = false;
+  this._sEls = [];
+  this._dEls = [];
+}
+
+HeroSlider.prototype.render = function() {
+  var html = '<div class="hero-inner">';
+  for (var i = 0; i < this._s.length; i++) {
+    html += '<div class="hero-slide' + (i === 0 ? ' active' : '') + '" style="background-image:url(\'' + this._s[i].bgImage + '\')">' +
+            '<div class="slide-content"><h1>' + this._s[i].title + '</h1><p>' + this._s[i].desc + '</p></div></div>';
+  }
+  html += '<div class="hero-dots">';
+  for (var j = 0; j < this._s.length; j++) {
+    html += '<button class="hero-dot' + (j === 0 ? ' active' : '') + '" type="button" aria-label="Slide ' + (j + 1) + '"></button>';
+  }
+  html += '</div></div>';
+  this._c.innerHTML = html;
+  this._sEls = this._c.querySelectorAll('.hero-slide');
+  this._dEls = this._c.querySelectorAll('.hero-dot');
+  this._bind();
+  this._start();
+};
+
+HeroSlider.prototype.destroy = function() {
+  if (this._tmr) { clearInterval(this._tmr); this._tmr = null; }
+  this._c.innerHTML = '';
+};
+
+HeroSlider.prototype._start = function() {
+  var self = this;
+  if (this._tmr) clearInterval(this._tmr);
+  this._tmr = setInterval(function() { self._next(); }, 4500);
+};
+
+HeroSlider.prototype._next = function() { this._goto((this._i + 1) % this._s.length); };
+
+HeroSlider.prototype._goto = function(idx) {
+  if (this._busy || idx === this._i) return;
+  this._busy = true;
+  this._sEls[this._i].classList.remove('active');
+  this._dEls[this._i].classList.remove('active');
+  this._i = idx;
+  this._sEls[this._i].classList.add('active');
+  this._dEls[this._i].classList.add('active');
+  var self = this;
+  setTimeout(function() { self._busy = false; }, 1200);
+};
+
+HeroSlider.prototype._bind = function() {
+  var self = this;
+  this._c.addEventListener('mouseenter', function() { clearInterval(self._tmr); self._tmr = null; });
+  this._c.addEventListener('mouseleave', function() { self._start(); });
+  for (var i = 0; i < this._dEls.length; i++) {
+    (function(idx) {
+      self._dEls[idx].addEventListener('click', function() { self._goto(idx); self._start(); });
+    })(i);
+  }
+  this._c.setAttribute('tabindex', '0');
+  this._c.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight') { self._next(); self._start(); }
+    if (e.key === 'ArrowLeft')  { self._goto((self._i - 1 + self._s.length) % self._s.length); self._start(); }
+  });
+};
+
+
+/* ============================================================
+   CLASS: PageRenderer
+   Renders the correct view per route into #app
+============================================================ */
+function PageRenderer(container, store) {
+  this._c     = container;
+  this._store = store;
+  this._sl    = null;
+}
+
+PageRenderer.prototype.render = function(pageKey) {
+  if (this._sl) { this._sl.destroy(); this._sl = null; }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  var page   = this._store.getPage(pageKey);
+  var slides = this._store.getGlobal().heroSlides;
+
+  if (pageKey === 'index') {
+    this._home(page, slides);
+  } else {
+    this._inner(page, slides);
+  }
+};
+
+PageRenderer.prototype._home = function(page, slides) {
+  this._c.innerHTML =
+    '<section class="hero"></section>' +
+    '<section class="services-section"><h2 class="section-title">Our Services</h2>' +
+    '<div class="services-grid">' + this._buildServices(page.services) + '</div></section>' +
+    '<section class="contact"><div class="contact-inner">' + this._buildContact(page.contact) + '</div></section>';
+  this._sl = new HeroSlider(this._c.querySelector('.hero'), slides);
+  this._sl.render();
+  this._bindCards();
+};
+
+PageRenderer.prototype._inner = function(page, slides) {
+  this._c.innerHTML =
+    '<section class="hero"></section>' +
+    '<section class="inner-page"><div class="about-container">' + this._buildInner(page) + '</div></section>';
+  this._sl = new HeroSlider(this._c.querySelector('.hero'), slides);
+  this._sl.render();
+};
+
+PageRenderer.prototype._buildServices = function(list) {
+  if (!list) return '';
+  var h = '';
+  for (var i = 0; i < list.length; i++) {
+    var s = list[i];
+    h += '<div class="service-card" data-link="' + s.link + '">' +
+         '<div class="service-image"><img src="' + s.image + '" alt="' + s.title + '" loading="lazy"></div>' +
+         '<div class="service-content"><h3>' + s.title + '</h3><p>' + s.desc + '</p></div></div>';
+  }
+  return h;
+};
+
+PageRenderer.prototype._bindCards = function() {
+  var cards = this._c.querySelectorAll('.service-card[data-link]');
+  for (var i = 0; i < cards.length; i++) {
+    (function(card) {
+      card.addEventListener('click', function() {
+        window.location.hash = card.getAttribute('data-link');
+      });
+    })(cards[i]);
+  }
+};
+
+PageRenderer.prototype._buildContact = function(c) {
+  if (!c) return '';
+  var soc = '';
+  for (var i = 0; i < c.social.length; i++) {
+    var s = c.social[i];
+    soc += '<a href="' + s.url + '" class="social-icon" title="' + s.title + '">' + s.icon + '</a>';
+  }
+  return '<h2>Get in Touch</h2>' +
+    '<div class="contact-item"><span class="icon">&#9993;</span><span>' + c.email + '</span></div>' +
+    '<div class="contact-item"><span class="icon">&#128222;</span><span>' + c.phone + '</span></div>' +
+    '<div class="contact-item"><span class="icon">&#128205;</span><span>' + c.address + '</span></div>' +
+    '<div class="social-row">' + soc + '</div>';
+};
+
+PageRenderer.prototype._buildInner = function(d) {
+  if (!d || !d.title) return '<p>Page not found.</p>';
+  var h = '<div class="about-text">';
+  h += '<h3>' + d.title + '</h3>';
+  if (d.intro)      h += '<p class="intro-text">' + d.intro + '</p>';
+  if (d.paragraphs) { for (var a = 0; a < d.paragraphs.length; a++) h += '<p>' + d.paragraphs[a] + '</p>'; }
+  if (d.benefits) {
+    h += '<h3>Benefits of SSL</h3><ul class="feature-list">';
+    for (var b = 0; b < d.benefits.length; b++) h += '<li>&#10004; ' + d.benefits[b] + '</li>';
+    h += '</ul>';
+  }
+  if (d.types)    h += '<h3>Types of SSL We Offer</h3><p>' + d.types + '</p>';
+  if (d.features) {
+    h += '<h3>Key Features</h3><ul class="feature-list">';
+    for (var c = 0; c < d.features.length; c++) h += '<li>&#10004; ' + d.features[c] + '</li>';
+    h += '</ul>';
+  }
+  if (d.why)         h += '<h3>Why Choose GreenBD Cloud VPS?</h3><p>' + d.why + '</p>';
+  if (d.ownership)   h += '<h3>' + d.ownership + '</h3><p>' + d.ownershipText + '</p>';
+  if (d.idealFor) {
+    h += '<h3>' + d.idealFor + '</h3><ul class="feature-list">';
+    for (var e = 0; e < d.idealList.length; e++) h += '<li>' + d.idealList[e] + '</li>';
+    h += '</ul>';
+  }
+  if (d.support) h += '<h3>' + d.support + '</h3><p>' + d.supportText + '</p>';
+  if (d.closing) h += '<p class="closing-text">' + d.closing + '</p>';
+  h += '</div>';
+  if (d.image) h += '<div class="about-image"><img src="' + d.image + '" alt="' + d.title + '" loading="lazy"></div>';
+  return h;
+};
+
+
+/* ============================================================
+   CLASS: App  —  Orchestrator. Wires all classes together.
+============================================================ */
+function App() {
+  this._store    = new DataStore();
+  this._header   = null;
+  this._footer   = null;
+  this._renderer = null;
+  this._router   = null;
+}
+
+App.prototype.init = function() {
+  var g = this._store.getGlobal();
+
+  this._header = new Header(
+    document.getElementById('site-header'),
+    document.getElementById('mobile-menu'),
+    g.header
+  );
+  this._header.render();
+
+  this._footer = new Footer(document.getElementById('site-footer'), g.footer);
+  this._footer.render();
+
+  this._renderer = new PageRenderer(document.getElementById('app'), this._store);
+
+  var self = this;
+  this._router = new Router(function(pageKey) {
+    self._renderer.render(pageKey);
+    self._header.setActive(pageKey);
+  });
+  this._router.init();
+};
+
+
+/* ── Bootstrap ── */
+document.addEventListener('DOMContentLoaded', function() {
+  new App().init();
+});
+</script>
 </body>
 </html>
