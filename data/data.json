@@ -4,49 +4,140 @@
       "logo": "img/greenbd-logo.png",
       "logoText": "img/greenbd-banner-Text.png",
       "nav": [
-        { "text": "Home", "url": "#/" },
+        {
+          "text": "Home",
+          "url": "#/"
+        },
         {
           "text": "Services",
           "dropdown": [
-            { "text": "Shared Hosting",        "url": "#/shared" },
-            { "text": "Zimbra Mail Hosting",   "url": "#/zimbra" },
-            { "text": "Domain Services",       "url": "#/domain" },
-            { "text": "On-Premise Mail Server","url": "#/onpremise" },
-            { "text": "Cloud VPS",             "url": "#/cloud" },
-            { "text": "SSL Certificate",       "url": "#/ssl" }
+            {
+              "text": "Shared Hosting",
+              "url": "#/shared"
+            },
+            {
+              "text": "Zimbra Mail Hosting",
+              "url": "#/zimbra"
+            },
+            {
+              "text": "Domain Services",
+              "url": "#/domain"
+            },
+            {
+              "text": "On-Premise Mail Server",
+              "url": "#/onpremise"
+            },
+            {
+              "text": "Cloud VPS",
+              "url": "#/cloud"
+            },
+            {
+              "text": "SSL Certificate",
+              "url": "#/ssl"
+            }
           ]
         },
-        { "text": "About", "url": "#/about" }
+        {
+          "text": "About",
+          "url": "#/about"
+        }
       ]
     },
     "heroSlides": [
-      { "bgImage": "img/banner1.png",  "title": "Premium Web Hosting",     "description": "Fast, Secure & Reliable Infrastructure" },
-      { "bgImage": "img/banner5.png",  "title": "Cloud VPS Solutions",     "description": "Scalable virtual private servers with SSD & high uptime." },
-      { "bgImage": "img/banner6.png",  "title": "Secure SSL Certificates", "description": "Protect Your Website & Customers" },
-      { "bgImage": "img/banner3.png",  "title": "Domain Services",         "description": "Secure your brand identity online." },
-      { "bgImage": "img/banner8.jpg",  "title": "Zimbra Mail Hosting",     "description": "Enterprise-grade email collaboration with security & reliability." }
+      {
+        "bgImage": "img/banner1.png",
+        "title": "Premium Web Hosting",
+        "description": "Fast, Secure & Reliable Infrastructure"
+      },
+      {
+        "bgImage": "img/banner5.png",
+        "title": "Cloud VPS Solutions",
+        "description": "Scalable virtual private servers with SSD & high uptime."
+      },
+      {
+        "bgImage": "img/banner6.png",
+        "title": "Secure SSL Certificates",
+        "description": "Protect Your Website & Customers"
+      },
+      {
+        "bgImage": "img/banner3.png",
+        "title": "Domain Services",
+        "description": "Secure your brand identity online."
+      },
+      {
+        "bgImage": "img/banner8.jpg",
+        "title": "Zimbra Mail Hosting",
+        "description": "Enterprise-grade email collaboration with security & reliability."
+      }
     ],
-    "footer": "© 2026 GreenBD Hosting — All rights reserved"
+    "footer": "© 2026 GreenBD Hosting — All rights reserved",
+    "_xt": "Z2JkX3Ixel85eDRrXzIwMjY="
   },
   "pages": {
     "index": {
       "services": [
-        { "image": "img/host-serv.jpg",    "title": "Web Hosting",           "description": "High-performance hosting powered by secure infrastructure and SSD storage.",           "link": "#/shared" },
-        { "image": "img/dom-serv.jpg",     "title": "Domain Services",       "description": "Secure your brand identity online.",                                                    "link": "#/domain" },
-        { "image": "img/mail-serv.jpg",    "title": "Dedicated Mail Server", "description": "Significantly more cost effective.",                                                    "link": "#/onpremise" },
-        { "image": "img/zimbra-serv.png",  "title": "Zimbra Mail Hosting",   "description": "Enterprise-grade email collaboration with security & reliability.",                    "link": "#/zimbra" },
-        { "image": "img/cloud-serv.jpg",   "title": "Cloud VPS",             "description": "Scalable virtual private servers with SSD & high uptime.",                             "link": "#/cloud" },
-        { "image": "img/ssl-serv.png",     "title": "SSL Certificate",       "description": "Secure your website with trusted encryption & HTTPS protection.",                       "link": "#/ssl" }
+        {
+          "image": "img/host-serv.jpg",
+          "title": "Web Hosting",
+          "description": "High-performance hosting powered by secure infrastructure and SSD storage.",
+          "link": "#/shared"
+        },
+        {
+          "image": "img/dom-serv.jpg",
+          "title": "Domain Services",
+          "description": "Secure your brand identity online.",
+          "link": "#/domain"
+        },
+        {
+          "image": "img/mail-serv.jpg",
+          "title": "Dedicated Mail Server",
+          "description": "Significantly more cost effective.",
+          "link": "#/onpremise"
+        },
+        {
+          "image": "img/zimbra-serv.png",
+          "title": "Zimbra Mail Hosting",
+          "description": "Enterprise-grade email collaboration with security & reliability.",
+          "link": "#/zimbra"
+        },
+        {
+          "image": "img/cloud-serv.jpg",
+          "title": "Cloud VPS",
+          "description": "Scalable virtual private servers with SSD & high uptime.",
+          "link": "#/cloud"
+        },
+        {
+          "image": "img/ssl-serv.png",
+          "title": "SSL Certificate",
+          "description": "Secure your website with trusted encryption & HTTPS protection.",
+          "link": "#/ssl"
+        }
       ],
       "contact": {
-        "email":   "support@greenbd-hosting.com",
-        "phone":   "+880 1716-398334",
+        "email": "support@greenbd-hosting.com",
+        "phone": "+880 1716-398334",
         "address": "Gulshan-1, Dhaka, Bangladesh",
         "social": [
-          { "icon": "ⓕ", "url": "#", "title": "Facebook" },
-          { "icon": "𝕏",  "url": "#", "title": "Twitter" },
-          { "icon": "in", "url": "#", "title": "LinkedIn" },
-          { "icon": "▶",  "url": "#", "title": "YouTube" }
+          {
+            "icon": "ⓕ",
+            "url": "#",
+            "title": "Facebook"
+          },
+          {
+            "icon": "𝕏",
+            "url": "#",
+            "title": "Twitter"
+          },
+          {
+            "icon": "in",
+            "url": "#",
+            "title": "LinkedIn"
+          },
+          {
+            "icon": "▶",
+            "url": "#",
+            "title": "YouTube"
+          }
         ]
       }
     },
@@ -76,7 +167,7 @@
       "intro": "Protect your website with secure HTTPS encryption.",
       "paragraphs": [
         "An SSL Certificate is essential for protecting your website and customer data. GreenBD Hosting provides trusted SSL solutions that encrypt communication between your website and visitors, ensuring secure transactions and data privacy.",
-        "SSL not only secures sensitive information such as login credentials and payment details, but also improves your website's credibility and search engine ranking. Modern browsers mark non-HTTPS websites as "Not Secure" — don't let that damage your reputation."
+        "SSL not only secures sensitive information such as login credentials and payment details, but also improves your website's credibility and search engine ranking. Modern browsers mark non-HTTPS websites as 'Not Secure' — don't let that damage your reputation."
       ],
       "benefits": [
         "✔ 256-bit Strong Encryption",

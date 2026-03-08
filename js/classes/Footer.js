@@ -1,14 +1,7 @@
-/**
- * Footer — Renders the site footer.
- */
 class Footer {
-  /**
-   * @param {HTMLElement} el          The <footer> element.
-   * @param {string}      footerText  HTML/text content from DataStore.global.footer.
-   */
-  constructor(el, footerText) {
-    this._el = el;
-    this._text = footerText;
+  constructor(el, text) {
+    this._el   = el;
+    this._text = text;
   }
 
   render() {
