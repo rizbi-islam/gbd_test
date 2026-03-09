@@ -4,7 +4,7 @@ class Router {
     ['/',          'index'],
     ['/about',     'about-us'],
     ['/about-us',  'about-us'],
-    ['/shared',    'shared'],
+    ['/hosting',    'hosting'],
     ['/ssl',       'ssl'],
     ['/zimbra',    'zimbra'],
     ['/domain',    'domain'],

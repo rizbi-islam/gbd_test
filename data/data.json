@@ -12,8 +12,8 @@
           "text": "Services",
           "dropdown": [
             {
-              "text": "Shared Hosting",
-              "url": "#/shared"
+              "text": "Hosting",
+              "url": "#/hosting"
             },
             {
               "text": "Zimbra Mail Hosting",
@@ -80,7 +80,7 @@
           "image": "img/host-serv.jpg",
           "title": "Web Hosting",
           "description": "High-performance hosting powered by secure infrastructure and SSD storage.",
-          "link": "#/shared"
+          "link": "#/hosting"
         },
         {
           "image": "img/dom-serv.jpg",
@@ -152,8 +152,8 @@
       ],
       "image": "img/about.jpg"
     },
-    "shared": {
-      "title": "Secure Shared Hosting",
+    "hosting": {
+      "title": "Secure Hosting",
       "paragraphs": [
         "We specialize in shared hosting, VPS solutions, and domain services designed to empower businesses, startups, and individuals across Bangladesh and beyond.",
         "With 24/7 technical support and optimized infrastructure, we provide a hosting experience engineered for growth.",

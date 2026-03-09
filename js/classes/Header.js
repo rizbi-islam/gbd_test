@@ -23,7 +23,7 @@ class Header {
   _urlToKey(url) {
     const seg = url.startsWith('#/') ? url.slice(2) : url.replace('.html', '').replace('./', '');
     const map = { '': 'index', 'about': 'about-us', 'about-us': 'about-us',
-                  'shared': 'shared', 'ssl': 'ssl', 'zimbra': 'zimbra',
+                  'hosting': 'hosting', 'ssl': 'ssl', 'zimbra': 'zimbra',
                   'domain': 'domain', 'cloud': 'cloud', 'onpremise': 'onpremise' };
     return map[seg] ?? 'index';
   }
